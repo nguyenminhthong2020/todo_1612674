@@ -18,8 +18,8 @@ class _AddState extends State<Add> {
 
   String _title = "";
   String _description = "";
-  String _date = "";
-  String _time = "";
+  String _date = (new DateTime.now()).toString().substring(0, 10);
+  String _time = DateFormat('Hm').format(new DateTime.now()).toString();
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +176,7 @@ class _AddState extends State<Add> {
                       child: Expanded(
                         child: DateTimePicker(
                           type: DateTimePickerType.time,
-                          initialValue: DateFormat('Hm').format(new DateTime.now()), //'1998-10-27',
+                          initialValue: DateFormat('Hm').format(new DateTime.now()), 
                           dateMask: 'hh:mm',
                           timeLabelText: "Time",
                           use24HourFormat: true,

@@ -18,25 +18,32 @@ class _TodayState extends State<Today> {
     TodoItemModel(0, "title0", "descrip0", "2021-11-16", "21:50", true),
     TodoItemModel(1, "title1", "descrip1", "2021-11-16", "21:50", false),
     TodoItemModel(2, "title2", "descrip2", "2021-11-16", "22:10", false),
+    TodoItemModel(3, "title3", "descrip3", "2021-11-17", "21:50", true),
+    TodoItemModel(4, "title4", "descrip4", "2021-11-17", "21:50", false),
+    TodoItemModel(5, "title5", "descrip5", "2021-11-18", "22:10", false),
   ];
-   String _searchQuery = "";
+  String _searchQuery = "";
 
   @override
   Widget build(BuildContext context) {
     Widget _buildTodoAllList() {
-       String _searchQueryLower = _searchQuery.toLowerCase();
+      String _searchQueryLower = _searchQuery.toLowerCase();
+      String _date = (new DateTime.now()).toString().substring(0, 10);
+      //print(_date);
       List<Widget> listTodo = [];
       for (var todo in _todos) {
         if (todo.title.contains(_searchQueryLower) ||
             todo.description.contains(_searchQueryLower)) {
-          listTodo.add(TodoItem(
-            id: todo.id,
-            title: todo.title,
-            description: todo.description,
-            date: todo.date,
-            time: todo.time,
-            isDone: todo.isDone,
-          ));
+          if (_date == todo.date) {
+            listTodo.add(TodoItem(
+              id: todo.id,
+              title: todo.title,
+              description: todo.description,
+              date: todo.date,
+              time: todo.time,
+              isDone: todo.isDone,
+            ));
+          }
         }
       }
       return Column(
@@ -47,7 +54,7 @@ class _TodayState extends State<Today> {
 
     return Scaffold(
         appBar: AppBar(
-           actions: <Widget>[
+          actions: <Widget>[
             Form(
               key: formKey,
               child: Container(
