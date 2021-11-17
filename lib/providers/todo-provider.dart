@@ -59,6 +59,7 @@ class TodoProvider extends ChangeNotifier {
 
   void add(TodoItemModel todo) {
     _todos.add(todo);
+    _todos.sort((x, y) => "${x.date}${x.time}".compareTo("${y.date}${y.time}"));
     saveSharedPreferences();
     notifyListeners();
   }

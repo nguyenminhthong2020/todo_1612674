@@ -51,6 +51,8 @@ class _TodayState extends State<Today> {
                   ),
                 ]));
       } else {
+        //_todos.sort((x, y) => "${x.date}${x.time}".compareTo("${y.date}${y.time}"));
+
         for (var todo in _todos) {
           final str_title = todo.title.toLowerCase();
           final str_des = todo.description.toLowerCase();
@@ -128,7 +130,7 @@ class _TodayState extends State<Today> {
           toolbarHeight: 60,
           backgroundColor: Colors.purple,
         ),
-        backgroundColor: Colors.grey[400],
+        backgroundColor: Colors.grey[300],
         body: ListView(
           children: [
             Container(
