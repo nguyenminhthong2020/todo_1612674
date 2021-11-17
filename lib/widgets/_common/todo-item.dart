@@ -1,6 +1,8 @@
 // ignore_for_file: unused_import, file_names, prefer_const_constructors, prefer_const_literals_to_create_immutables
 
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
+import 'package:todo_1612674/providers/todo-provider.dart';
 
 class TodoItem extends StatelessWidget {
   const TodoItem(
@@ -48,7 +50,8 @@ class TodoItem extends StatelessWidget {
                     value: this.isDone,
                     onChanged: (bool? val) {
                       if (val != null) {
-                        print("select ${this.id}");
+                        //print("select ${this.id}");
+                        context.read<TodoProvider>().toggleDone(this.id);
                       }
                     }),
               ),
@@ -84,7 +87,8 @@ class TodoItem extends StatelessWidget {
             children: [
               GestureDetector(
                   onTap: () {
-                    print("delete ${this.id}");
+                    //print("delete ${this.id}");
+                    context.read<TodoProvider>().remove(this.id);
                   },
                   child: Icon(
                     Icons.delete,

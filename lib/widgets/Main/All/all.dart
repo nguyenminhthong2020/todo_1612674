@@ -1,6 +1,11 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:provider/src/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:todo_1612674/providers/todo-provider.dart';
 import '../../../models/todo-item-dto.dart';
 import '../../_common/todo-item.dart';
 
@@ -14,42 +19,62 @@ class All extends StatefulWidget {
 
 class _AllState extends State<All> {
   final formKey = GlobalKey<FormState>();
-  final _todos = <TodoItemModel>[
-    TodoItemModel(0, "title0", "descrip0", "2021-11-16", "21:50", true),
-    TodoItemModel(1, "title1", "descrip1 với", "2021-11-16", "21:50", false),
-    TodoItemModel(2, "title2", "descrip2", "2021-11-16", "22:10", false),
-    TodoItemModel(3, "ahihi", "1 với 1 là 5", "2021-11-16", "22:10", true),
-    TodoItemModel(4, "hi", "với", "2021-11-16", "22:10", false),
-    // TodoItemModel(5, "title5", "descrip0", "2021-11-16", "21:50", true),
-    // TodoItemModel(6, "title6", "descrip1 với", "2021-11-16", "21:50", false),
-    // TodoItemModel(7, "thật là", "descrip2", "2021-11-16", "22:10", false),
-    // TodoItemModel(8, "hihihihi", "1 với 1 là 8", "2021-11-16", "22:10", true),
-    // TodoItemModel(9, "hi", "với", "2021-11-16", "22:10", false),
-  ];
   String _searchQuery = "";
+  bool _isNull = false;
 
   @override
   Widget build(BuildContext context) {
     Widget _buildTodoAllList() {
       String _searchQueryLower = _searchQuery.toLowerCase();
+      //print(_searchQueryLower);
       List<Widget> listTodo = [];
-      for (var todo in _todos) {
-        if (todo.title.contains(_searchQueryLower) ||
-            todo.description.contains(_searchQueryLower)) {
-          listTodo.add(TodoItem(
-            id: todo.id,
-            title: todo.title,
-            description: todo.description,
-            date: todo.date,
-            time: todo.time,
-            isDone: todo.isDone,
-          ));
+      List<TodoItemModel> _todos = context.watch<TodoProvider>().todos;
+
+      if (_todos.isEmpty) {
+        return TextButton(
+            onPressed: () {
+              setState(() {
+                _isNull = !_isNull;
+              });
+            },
+            child: Row(mainAxisAlignment: MainAxisAlignment.center,
+                // crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(top: 50),
+                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.pink,
+                    ),
+                    child: Text(
+                      "Click to load Data",
+                      style: TextStyle(color: Colors.white, fontSize: 18),
+                    ),
+                  ),
+                ]));
+      } else {
+        for (var todo in _todos) {
+          final str_title = todo.title.toLowerCase();
+          final str_des = todo.description.toLowerCase();
+          if (str_title.contains(_searchQueryLower) ||
+              str_des.contains(_searchQueryLower)) {
+                //print("_searchQueryLower: ${_searchQueryLower}, title||des: ${todo.title}");
+            listTodo.add(TodoItem(
+              id: todo.id,
+              title: todo.title,
+              description: todo.description,
+              date: todo.date,
+              time: todo.time,
+              isDone: todo.isDone,
+            ));
+          }
         }
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: listTodo,
+        );
       }
-      return Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: listTodo,
-      );
     }
 
     return Scaffold(

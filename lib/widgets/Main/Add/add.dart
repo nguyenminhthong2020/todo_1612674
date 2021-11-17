@@ -3,7 +3,12 @@
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
+// import 'package:intl/date_symbol_data_local.dart';
+// import 'package:provider/src/provider.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/src/provider.dart';
+import 'package:todo_1612674/models/todo-item-dto.dart';
+import 'package:todo_1612674/providers/todo-provider.dart';
 
 class Add extends StatefulWidget {
   const Add({Key? key}) : super(key: key);
@@ -20,6 +25,27 @@ class _AddState extends State<Add> {
   String _description = "";
   String _date = (new DateTime.now()).toString().substring(0, 10);
   String _time = DateFormat('Hm').format(new DateTime.now()).toString();
+
+  late FToast fToast;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
+  Widget toast = Container(
+    padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12.0),
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(25.0),
+      color: Colors.green[700],
+    ),
+    child: Text(
+      "Item successfully added !",
+      style: TextStyle(color: Colors.white, fontSize: 20),
+    ),
+  );
 
   @override
   Widget build(BuildContext context) {
@@ -103,30 +129,32 @@ class _AddState extends State<Add> {
                     Container(
                       margin: EdgeInsets.only(left: 15, right: 15),
                       child: Expanded(
-                          child: TextFormField(
-                        initialValue: _description,
-                        decoration: const InputDecoration(
-                          //focusColor: Colors.white,
-                          // icon: Icon(
-                          //   Icons.phone,
-                          //   color: Colors.white,
-                          //   size: 32,
-                          // ),
-                          labelText: 'Description',
-                          border: OutlineInputBorder(),
+                          child: Container(
+                        child: TextFormField(
+                          initialValue: _description,
+                          decoration: const InputDecoration(
+                            //focusColor: Colors.white,
+                            // icon: Icon(
+                            //   Icons.phone,
+                            //   color: Colors.white,
+                            //   size: 32,
+                            // ),
+                            labelText: 'Description',
+                            border: OutlineInputBorder(),
+                          ),
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "* Required";
+                            } else
+                              return null;
+                          },
+                          onSaved: (value) => setState(() {
+                            if (value != null) {
+                              _description = value;
+                            }
+                          }),
+                          //keyboardType: TextInputType.phone,
                         ),
-                        validator: (value) {
-                          if (value!.isEmpty) {
-                            return "* Required";
-                          } else
-                            return null;
-                        },
-                        onSaved: (value) => setState(() {
-                          if (value != null) {
-                            _description = value;
-                          }
-                        }),
-                        //keyboardType: TextInputType.phone,
                       )),
                     ),
                     SizedBox(
@@ -176,7 +204,8 @@ class _AddState extends State<Add> {
                       child: Expanded(
                         child: DateTimePicker(
                           type: DateTimePickerType.time,
-                          initialValue: DateFormat('Hm').format(new DateTime.now()), 
+                          initialValue:
+                              DateFormat('Hm').format(new DateTime.now()),
                           dateMask: 'hh:mm',
                           timeLabelText: "Time",
                           use24HourFormat: true,
@@ -206,9 +235,35 @@ class _AddState extends State<Add> {
                                   formKey.currentState!.validate();
                               if (isValid) {
                                 formKey.currentState?.save();
-                                final message =
-                                    "${_title}, ${_description}, ${_date}, ${_time}";
-                                print(message);
+                                // final message =
+                                //     "${_title}, ${_description}, ${_date}, ${_time}";
+                                // print(message);
+
+                                int lastId = context.read<TodoProvider>().lastId;
+                                TodoItemModel newItem = TodoItemModel(
+                                    lastId + 1,
+                                    _title,
+                                    _description,
+                                    _date,
+                                    _time,
+                                    false);
+                                context.read<TodoProvider>().add(newItem);
+
+                                fToast.showToast(
+                                  child: toast,
+                                  gravity: ToastGravity.CENTER,
+                                  toastDuration: Duration(seconds: 2)
+                                );
+                                // Fluttertoast.showToast(
+                                //     msg: "Item successfully added !",
+                                //     toastLength: Toast.LENGTH_SHORT,
+                                //     gravity: ToastGravity.TOP,
+                                //     timeInSecForIosWeb: 2,
+
+                                //     backgroundColor: Colors.green[300],
+                                //     textColor: Colors.white,
+                                //     fontSize: 20.0);
+                                //print("add nè");
                               }
                             },
                             child: Text('Save'),
@@ -219,7 +274,7 @@ class _AddState extends State<Add> {
                               primary: Colors.purple,
                               textStyle: const TextStyle(fontSize: 22),
                             ),
-                          )
+                          ),
                         ],
                       ),
                     )
