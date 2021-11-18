@@ -11,10 +11,17 @@ import './widgets/Main/Notification/notification.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 //import 'package:provider/provider.dart';
+import './service/notification_service.dart';
 import './providers/todo-provider.dart';
+import './providers/notification-provider.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:localstorage/localstorage.dart';
 
-void main() {
-  //runApp(const MyApp());
+Future<void> main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  // await NotificationService().init();
+  // await NotificationService().requestIOSPermissions();
+  
   runApp(
     // ChangeNotifierProvider(
     //   create: (context) => TodoProvider(),
@@ -22,18 +29,28 @@ void main() {
     // ),
     MultiProvider(
       providers: [
-      ChangeNotifierProvider(create: (context) => TodoProvider())
+      ChangeNotifierProvider(create: (context) => TodoProvider()),
+      ChangeNotifierProvider(create: (context) => NotificationProvider())
     ],
     child: MyApp(),
     )
   );
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({ Key? key }) : super(key: key);
+
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
+    // NotificationService().init(context);
+    // NotificationService().requestIOSPermissions();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Todo_1612674',
@@ -58,3 +75,32 @@ class MyApp extends StatelessWidget {
     );
   }
 }
+// class MyApp extends StatelessWidget {
+//   const MyApp({Key? key}) : super(key: key);
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+//       debugShowCheckedModeBanner: false,
+//       title: 'Todo_1612674',
+//       localizationsDelegates: [
+//         GlobalMaterialLocalizations.delegate,
+//         GlobalWidgetsLocalizations.delegate,
+//         GlobalCupertinoLocalizations.delegate,
+//       ],
+//       supportedLocales: [
+//         Locale('en', ''), 
+//         Locale('vi', ''), 
+//       ],
+//       home: Home(),
+//       routes: {
+//         Home.routeName: (ctx) => Home(),
+//         All.routeName: (ctx) => All(),
+//         Today.routeName: (ctx) => Today(),
+//         Upcoming.routeName: (ctx) => Upcoming(),
+//         Add.routeName: (ctx) => Add(),
+//         Notifications.routeName: (ctx) => Notifications(),
+//       },
+//     );
+//   }
+// }

@@ -8,7 +8,9 @@ import 'package:intl/intl.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/src/provider.dart';
 import 'package:todo_1612674/models/todo-item-dto.dart';
+import 'package:todo_1612674/providers/notification-provider.dart';
 import 'package:todo_1612674/providers/todo-provider.dart';
+import '../../../service/notification_service.dart';
 
 class Add extends StatefulWidget {
   const Add({Key? key}) : super(key: key);
@@ -27,6 +29,7 @@ class _AddState extends State<Add> {
   String _time = DateFormat('Hm').format(new DateTime.now()).toString();
 
   late FToast fToast;
+  //NotificationService _notificationService = NotificationService();
 
   @override
   void initState() {
@@ -93,12 +96,6 @@ class _AddState extends State<Add> {
                           child: TextFormField(
                         initialValue: _title,
                         decoration: const InputDecoration(
-                          //focusColor: Colors.white,
-                          // icon: Icon(
-                          //   Icons.phone,
-                          //   color: Colors.white,
-                          //   size: 32,
-                          // ),
                           labelText: 'Title',
                           border: OutlineInputBorder(),
                         ),
@@ -133,12 +130,6 @@ class _AddState extends State<Add> {
                         child: TextFormField(
                           initialValue: _description,
                           decoration: const InputDecoration(
-                            //focusColor: Colors.white,
-                            // icon: Icon(
-                            //   Icons.phone,
-                            //   color: Colors.white,
-                            //   size: 32,
-                            // ),
                             labelText: 'Description',
                             border: OutlineInputBorder(),
                           ),
@@ -235,11 +226,14 @@ class _AddState extends State<Add> {
                                   formKey.currentState!.validate();
                               if (isValid) {
                                 formKey.currentState?.save();
-                                // final message =
-                                //     "${_title}, ${_description}, ${_date}, ${_time}";
-                                // print(message);
 
-                                int lastId = context.read<TodoProvider>().lastId;
+                                fToast.showToast(
+                                    child: toast,
+                                    gravity: ToastGravity.CENTER,
+                                    toastDuration: Duration(seconds: 2));
+
+                                int lastId =
+                                    context.read<TodoProvider>().lastId;
                                 TodoItemModel newItem = TodoItemModel(
                                     lastId + 1,
                                     _title,
@@ -247,23 +241,24 @@ class _AddState extends State<Add> {
                                     _date,
                                     _time,
                                     false);
+
+                                int year =
+                                    int.parse(newItem.date.substring(0, 4));
+                                int month =
+                                    int.parse(newItem.date.substring(5, 7));
+                                int day =
+                                    int.parse(newItem.date.substring(8, 10));
+                                int hour = int.parse(
+                                    newItem.time.substring(0, 2)); //15:20
+                                int minute =
+                                    int.parse(newItem.time.substring(3, 5));
+                                DateTime dateTime = new DateTime(
+                                    year, month, day, hour, minute);
+
+                                context
+                                    .read<NotificationProvider>()
+                                    .add(newItem.id, newItem.title, dateTime);
                                 context.read<TodoProvider>().add(newItem);
-
-                                fToast.showToast(
-                                  child: toast,
-                                  gravity: ToastGravity.CENTER,
-                                  toastDuration: Duration(seconds: 2)
-                                );
-                                // Fluttertoast.showToast(
-                                //     msg: "Item successfully added !",
-                                //     toastLength: Toast.LENGTH_SHORT,
-                                //     gravity: ToastGravity.TOP,
-                                //     timeInSecForIosWeb: 2,
-
-                                //     backgroundColor: Colors.green[300],
-                                //     textColor: Colors.white,
-                                //     fontSize: 20.0);
-                                //print("add nè");
                               }
                             },
                             child: Text('Save'),

@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
 
 import 'package:flutter/material.dart';
+import 'package:todo_1612674/service/notification_service.dart';
 import '../All/all.dart';
 import '../Today/today.dart';
 import '../Upcoming/upcoming.dart';
@@ -13,6 +14,9 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NotificationService().init(context);
+    NotificationService().requestIOSPermissions();
+    
     return Scaffold(
       appBar: AppBar(
         leading: Icon(

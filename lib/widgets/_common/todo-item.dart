@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:provider/src/provider.dart';
+import 'package:todo_1612674/providers/notification-provider.dart';
 import 'package:todo_1612674/providers/todo-provider.dart';
 
 class TodoItem extends StatelessWidget {
@@ -69,10 +70,14 @@ class TodoItem extends StatelessWidget {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    this.title,
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blue[700]),
+                   Container(
+                    width: 250,
+                    child: Flexible(child: Text(this.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blue[700]))),
                   ),
+                  // Text(
+                  //   this.title,
+                  //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blue[700]),
+                  // ),
                   SizedBox(
                     height: 5,
                   ),
@@ -107,6 +112,7 @@ class TodoItem extends StatelessWidget {
               GestureDetector(
                   onTap: () {
                     //print("delete ${this.id}");
+                    context.read<NotificationProvider>().remove(this.id);
                     context.read<TodoProvider>().remove(this.id);
                   },
                   child: Icon(
