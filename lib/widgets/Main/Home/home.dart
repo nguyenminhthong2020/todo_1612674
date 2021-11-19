@@ -23,12 +23,6 @@ class Home extends StatelessWidget {
           Icons.home,
           size: 35,
         ),
-        // actions: [
-        //   Padding(
-        //     padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-        //     child: Icon(Icons.notifications),
-        //   )
-        // ],
         titleSpacing: 0,
         title: const Text(
           'Todo App',
@@ -52,110 +46,6 @@ class Home extends StatelessWidget {
           decoration: BoxDecoration(
             color: Colors.white,
           ),
-          // child: Column(
-          //   //mainAxisAlignment: MainAxisAlignment.center,
-          //   crossAxisAlignment: CrossAxisAlignment.start,
-          //   children: [
-          //     OutlinedButton(
-          //       onPressed: (){
-          //         Navigator.of(context).pushNamed(All.routeName);
-          //       },
-          //       child: Container(
-          //         child: Padding(
-          //           padding:
-          //               const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-          //           child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             children: [
-          //               Row(
-          //                 children: [
-          //                   Icon(Icons.all_inbox),
-          //                   SizedBox(width: 10,),
-          //                   Text("All", style: TextStyle(fontSize: 18, color: Colors.black),),
-          //                 ],
-          //               ),
-          //               Icon(Icons.arrow_right)
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //     //Container(height: 1, color: Colors.grey[400],),
-          //     OutlinedButton(
-          //       onPressed: (){
-          //         Navigator.of(context).pushNamed(Today.routeName);
-          //       },
-          //       child: Container(
-          //         child: Padding(
-          //           padding:
-          //               const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-          //           child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             children: [
-          //               Row(
-          //                 children: [
-          //                   Icon(Icons.today),
-          //                   SizedBox(width: 10,),
-          //                   Text("Today", style: TextStyle(fontSize: 18, color: Colors.black),),
-          //                 ],
-          //               ),
-          //               Icon(Icons.arrow_right)
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //     //Container(height: 1, color: Colors.grey[400],),
-          //     OutlinedButton(
-          //       onPressed: (){
-          //         Navigator.of(context).pushNamed(Upcoming.routeName);
-          //       },
-          //       child: Container(
-          //         child: Padding(
-          //           padding:
-          //               const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-          //           child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             children: [
-          //               Row(
-          //                 children: [
-          //                   Icon(Icons.schedule),
-          //                   SizedBox(width: 10,),
-          //                   Text("Upcoming", style: TextStyle(fontSize: 18, color: Colors.black),),
-          //                 ],
-          //               ),
-          //               Icon(Icons.arrow_right)
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //     OutlinedButton(
-          //       onPressed: (){
-          //         Navigator.of(context).pushNamed(Notifications.routeName);
-          //       },
-          //       child: Container(
-          //         child: Padding(
-          //           padding:
-          //               const EdgeInsets.symmetric(vertical: 20, horizontal: 15),
-          //           child: Row(
-          //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          //             children: [
-          //               Row(
-          //                 children: [
-          //                   Icon(Icons.notifications),
-          //                   SizedBox(width: 10,),
-          //                   Text("Notification", style: TextStyle(fontSize: 18, color: Colors.black),),
-          //                 ],
-          //               ),
-          //               Icon(Icons.arrow_right)
-          //             ],
-          //           ),
-          //         ),
-          //       ),
-          //     ),
-          //   ],
-          // )
           child: ListView(
             children: ListTile.divideTiles(
                 context: context,

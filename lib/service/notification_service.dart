@@ -95,9 +95,6 @@ class NotificationService {
   }
 
   Future<void> mySelectNotification(String? payload) async {
-  // BuildContext context = Home().build(context);
-  //navigatorKey
-  //await Navigator.push(context, MaterialPageRoute(builder: (_) => Notifications()));
   }
 
   static const AndroidNotificationDetails _androidNotificationDetails = AndroidNotificationDetails(
@@ -137,11 +134,7 @@ class NotificationService {
 
 
   Future<void> scheduleNotification(TodoItemModel todo) async {
-    // if (!todo.hasNotification) {
-    //   return;
-    // }
     String title = '${todo.title} at ${todo.time}';
-    
     //tz.TZDateTime scheduledDate = tz.TZDateTime.from(todo.scheduledNotificationAt, tz.local);
     tz.TZDateTime scheduledDate = tz.TZDateTime.now(tz.local).add(const Duration(minutes: 5));
     await flutterLocalNotificationsPlugin.zonedSchedule(
@@ -151,16 +144,12 @@ class NotificationService {
   }
 
   Future<void> myScheduleNotification(int id, String title, String body, DateTime scheduledDate) async{
-       //print("hàm future myScheduleNotification nè");
        await flutterLocalNotificationsPlugin.zonedSchedule(
        id, title, body, 
        tz.TZDateTime.from(scheduledDate, tz.local),
        platformChannelSpecifics,
         androidAllowWhileIdle: true,
         uiLocalNotificationDateInterpretation: UILocalNotificationDateInterpretation.absoluteTime
-      //  notificationDetails, 
-      //  uiLocalNotificationDateInterpretation: uiLocalNotificationDateInterpretation, 
-      //  androidAllowWhileIdle: androidAllowWhileIdle
        );
   }
 

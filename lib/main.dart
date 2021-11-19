@@ -19,10 +19,7 @@ import 'package:localstorage/localstorage.dart';
 
 Future<void> main() async {
    WidgetsFlutterBinding.ensureInitialized();
-  // await NotificationService().init();
-  // await NotificationService().requestIOSPermissions();
-  
-  runApp(
+   runApp(
     // ChangeNotifierProvider(
     //   create: (context) => TodoProvider(),
     //   child: MyApp(),
@@ -48,9 +45,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    // NotificationService().init(context);
-    // NotificationService().requestIOSPermissions();
-
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Todo_1612674',
@@ -75,32 +69,3 @@ class _MyAppState extends State<MyApp> {
     );
   }
 }
-// class MyApp extends StatelessWidget {
-//   const MyApp({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       title: 'Todo_1612674',
-//       localizationsDelegates: [
-//         GlobalMaterialLocalizations.delegate,
-//         GlobalWidgetsLocalizations.delegate,
-//         GlobalCupertinoLocalizations.delegate,
-//       ],
-//       supportedLocales: [
-//         Locale('en', ''), 
-//         Locale('vi', ''), 
-//       ],
-//       home: Home(),
-//       routes: {
-//         Home.routeName: (ctx) => Home(),
-//         All.routeName: (ctx) => All(),
-//         Today.routeName: (ctx) => Today(),
-//         Upcoming.routeName: (ctx) => Upcoming(),
-//         Add.routeName: (ctx) => Add(),
-//         Notifications.routeName: (ctx) => Notifications(),
-//       },
-//     );
-//   }
-// }

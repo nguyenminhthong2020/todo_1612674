@@ -11,16 +11,6 @@ import 'package:localstorage/localstorage.dart';
 
 class TodoProvider extends ChangeNotifier {
   List<TodoItemModel> _todos = [
-    // TodoItemModel(0, "Số 0", "descrip 0", "2021-11-17", "21:50", true),
-    // TodoItemModel(1, "Số 1", "descrip 1", "2021-11-17", "21:50", false),
-    // TodoItemModel(2, "Số 2", "descrip 2", "2021-11-17", "22:10", false),
-    // TodoItemModel(3, "ahihi", "1 với 1 là 5", "2021-11-18", "09:10", true),
-    //  TodoItemModel(4, "hi", "với", "2021-11-19", "22:18", false),
-    // TodoItemModel(5, "5 Nè", "descrip5", "2021-11-18", "21:50", true),
-    // TodoItemModel(6, "6 Đây", "descrip 6 với", "2021-11-19", "21:50", false),
-    // TodoItemModel(7, "title7", "descrip 7", "2021-11-19", "22:10", false),
-    // TodoItemModel(8, "Học bài", "1 với 1", "2021-11-21", "22:10", true),
-    // TodoItemModel(9, "hi", "là", "2021-01-12", "22:10", false),
   ];
 
   //LocalStorage storage = new LocalStorage('todo_app');
@@ -53,7 +43,7 @@ class TodoProvider extends ChangeNotifier {
   }
   
   List<TodoItemModel> get todos {
-     getSharedPreferences();
+     //getSharedPreferences();
      return _todos;
   } 
   //int get lastId => _todos.isNotEmpty ? _todos[_todos.length - 1].id : 0;
@@ -74,9 +64,6 @@ class TodoProvider extends ChangeNotifier {
   }
 
   void remove(int id) {
-    for (var item in _todos) {
-       print("id ${item.id}, title${item.title}");
-    }
     _todos.removeWhere((element) => element.id == id);
     saveSharedPreferences();
     notifyListeners();

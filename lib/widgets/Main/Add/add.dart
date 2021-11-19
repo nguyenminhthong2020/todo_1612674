@@ -3,8 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:intl/intl.dart';
-// import 'package:intl/date_symbol_data_local.dart';
-// import 'package:provider/src/provider.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/src/provider.dart';
 import 'package:todo_1612674/models/todo-item-dto.dart';
@@ -29,7 +27,6 @@ class _AddState extends State<Add> {
   String _time = DateFormat('Hm').format(new DateTime.now()).toString();
 
   late FToast fToast;
-  //NotificationService _notificationService = NotificationService();
 
   @override
   void initState() {
@@ -52,7 +49,6 @@ class _AddState extends State<Add> {
 
   @override
   Widget build(BuildContext context) {
-    //initializeDateFormatting("vi");
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -75,7 +71,6 @@ class _AddState extends State<Add> {
         child: Form(
           key: formKey,
           child: ListView(scrollDirection: Axis.vertical,
-              //margin: EdgeInsets.only(left: 15, right: 15, top: 10),
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -110,7 +105,6 @@ class _AddState extends State<Add> {
                             _title = value;
                           }
                         }),
-                        //keyboardType: TextInputType.phone,
                       )),
                     ),
                     SizedBox(
@@ -144,7 +138,6 @@ class _AddState extends State<Add> {
                               _description = value;
                             }
                           }),
-                          //keyboardType: TextInputType.phone,
                         ),
                       )),
                     ),
@@ -155,9 +148,6 @@ class _AddState extends State<Add> {
                       "   Date: ",
                       style: TextStyle(fontSize: 18),
                     ),
-                    // SizedBox(
-                    //   height: 5,
-                    // ),
                     Container(
                       margin: EdgeInsets.only(left: 15, right: 15),
                       child: Expanded(
@@ -173,8 +163,6 @@ class _AddState extends State<Add> {
                             _date = val.toString();
                           },
                           validator: (val) {
-                            // print(val);
-                            //return null;
                           },
                           onSaved: (val) {},
                         ),
@@ -187,9 +175,6 @@ class _AddState extends State<Add> {
                       "   Time: ",
                       style: TextStyle(fontSize: 18),
                     ),
-                    // SizedBox(
-                    //   height: 5,
-                    // ),
                     Container(
                       margin: EdgeInsets.only(left: 15, right: 15),
                       child: Expanded(
@@ -203,11 +188,8 @@ class _AddState extends State<Add> {
                           locale: Locale('en', 'US'),
                           onChanged: (val) {
                             _time = val.toString();
-                            // print(val);
                           },
                           validator: (val) {
-                            // print(val);
-                            //return null;
                           },
                           onSaved: (val) {},
                         ),
@@ -216,7 +198,6 @@ class _AddState extends State<Add> {
                     SizedBox(height: 20),
                     Container(
                       margin: EdgeInsets.only(top: 10),
-                      // decoration: ,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [

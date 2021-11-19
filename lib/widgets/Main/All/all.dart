@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, avoid_print, non_constant_identifier_names
 
 import 'dart:convert';
 
@@ -21,47 +21,39 @@ class _AllState extends State<All> {
   final formKey = GlobalKey<FormState>();
   String _searchQuery = "";
   bool _isNull = false;
+  List<TodoItemModel> _todos = [];
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    
+    SharedPreferences.getInstance().then((prefs) {
+      String storeTodos = prefs.getString("_todos") ?? "[]";
+      List<dynamic> parsedListJson = jsonDecode(storeTodos);
+      List<TodoItemModel> itemsList = List<TodoItemModel>.from(
+          parsedListJson.map((i) => TodoItemModel.fromJson(i)));
+      setState(() {
+        _todos = itemsList;
+      });
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     Widget _buildTodoAllList() {
       String _searchQueryLower = _searchQuery.toLowerCase();
-      //print(_searchQueryLower);
       List<Widget> listTodo = [];
-      List<TodoItemModel> _todos = context.watch<TodoProvider>().todos;
-
-      if (_todos.isEmpty) {
-        return TextButton(
-            onPressed: () {
-              setState(() {
-                _isNull = !_isNull;
-              });
-            },
-            child: Row(mainAxisAlignment: MainAxisAlignment.center,
-                // crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    margin: EdgeInsets.only(top: 50),
-                    padding: EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: Colors.pink,
-                    ),
-                    child: Text(
-                      "Click to load Data",
-                      style: TextStyle(color: Colors.white, fontSize: 18),
-                    ),
-                  ),
-                ]));
-      } else {
-        // _todos.sort((x, y) => "${x.date}${x.time}".compareTo("${y.date}${y.time}"));
-
-        for (var todo in _todos) {
+      List<TodoItemModel> _todos1 = context.watch<TodoProvider>().todos;
+      if(_todos1.isEmpty){
+        _todos1 = _todos;
+      }
+      
+      for (var todo in _todos1) {
           final str_title = todo.title.toLowerCase();
           final str_des = todo.description.toLowerCase();
           if (str_title.contains(_searchQueryLower) ||
               str_des.contains(_searchQueryLower)) {
-                //print("_searchQueryLower: ${_searchQueryLower}, title||des: ${todo.title}");
             listTodo.add(TodoItem(
               id: todo.id,
               title: todo.title,
@@ -76,7 +68,6 @@ class _AllState extends State<All> {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: listTodo,
         );
-      }
     }
 
     return Scaffold(

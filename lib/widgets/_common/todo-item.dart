@@ -52,18 +52,10 @@ class TodoItem extends StatelessWidget {
                     value: this.isDone,
                     onChanged: (bool? val) {
                       if (val != null) {
-                        //print("select ${this.id}");
                         context.read<TodoProvider>().toggleDone(this.id);
                       }
                     }),
               ),
-              //  Checkbox(
-              //    checkColor: Colors.greenAccent,
-              //    value: this.isDone, onChanged: (bool? val){
-              //     if (val != null) {
-              //       print("select ${this.id}");
-              //    }
-              //  }),
               SizedBox(
                 width: 1,
               ),
@@ -74,10 +66,6 @@ class TodoItem extends StatelessWidget {
                     width: 250,
                     child: Flexible(child: Text(this.title, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blue[700]))),
                   ),
-                  // Text(
-                  //   this.title,
-                  //   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 15, color: Colors.blue[700]),
-                  // ),
                   SizedBox(
                     height: 5,
                   ),
@@ -85,17 +73,7 @@ class TodoItem extends StatelessWidget {
                     width: 250,
                     //color: Colors.yellow,
                     child: Flexible(child: Text(this.description)),
-                    // child: Flexible(
-                    //       child: Text(
-                    //       this.description,
-                    //       // maxLines: 3,
-                    //       //style: TextStyle(color: Color.fromRGBO(12, 61, 223, 1)),
-                    //     )),
                   ),
-
-                  // Text(
-                  //   this.description,
-                  // ),
                   SizedBox(
                     height: 9,
                   ),
@@ -111,7 +89,6 @@ class TodoItem extends StatelessWidget {
             children: [
               GestureDetector(
                   onTap: () {
-                    //print("delete ${this.id}");
                     context.read<NotificationProvider>().remove(this.id);
                     context.read<TodoProvider>().remove(this.id);
                   },
