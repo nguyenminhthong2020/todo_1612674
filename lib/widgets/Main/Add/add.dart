@@ -212,29 +212,30 @@ class _AddState extends State<Add> {
                                     child: toast,
                                     gravity: ToastGravity.CENTER,
                                     toastDuration: Duration(seconds: 2));
-
-                                int lastId =
-                                    context.read<TodoProvider>().lastId;
+                                    
+                                int year =
+                                    int.parse(_date.substring(0, 4));
+                                int month =
+                                    int.parse(_date.substring(5, 7));
+                                int day =
+                                    int.parse(_date.substring(8, 10));
+                                int hour = int.parse(
+                                    _time.substring(0, 2)); //15:20
+                                int minute =
+                                    int.parse(_time.substring(3, 5));
+                                DateTime dateTime = new DateTime(
+                                    year, month, day, hour, minute);
+                                 
+                                //int _lastId = (dateTime.millisecondsSinceEpoch / 1000).round();
+                                int _lastId = year*12*31*24*60 + month*31*24*60 + day*24*60 + hour*60 + minute;
+                            
                                 TodoItemModel newItem = TodoItemModel(
-                                    lastId + 1,
+                                    _lastId,
                                     _title,
                                     _description,
                                     _date,
                                     _time,
                                     false);
-
-                                int year =
-                                    int.parse(newItem.date.substring(0, 4));
-                                int month =
-                                    int.parse(newItem.date.substring(5, 7));
-                                int day =
-                                    int.parse(newItem.date.substring(8, 10));
-                                int hour = int.parse(
-                                    newItem.time.substring(0, 2)); //15:20
-                                int minute =
-                                    int.parse(newItem.time.substring(3, 5));
-                                DateTime dateTime = new DateTime(
-                                    year, month, day, hour, minute);
 
                                 context
                                     .read<NotificationProvider>()

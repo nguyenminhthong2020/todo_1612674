@@ -3,7 +3,7 @@
 class TodoItemModel {
   TodoItemModel(
       this.id, this.title, this.description, this.date, this.time, this.isDone);
-  final int id;
+  int id;
   String title;
   String description;
   String date;

@@ -13,7 +13,8 @@ class TodoItem extends StatelessWidget {
       required this.description,
       required this.date,
       required this.time,
-      required this.isDone})
+      required this.isDone}
+      )
       : super(key: key);
   final int id;
   final String title;

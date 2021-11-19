@@ -12,7 +12,10 @@ import 'package:localstorage/localstorage.dart';
 class TodoProvider extends ChangeNotifier {
   List<TodoItemModel> _todos = [
   ];
-
+  
+  void initTodos(List<TodoItemModel> list){
+     _todos = list;
+  }
   //LocalStorage storage = new LocalStorage('todo_app');
 
   void saveSharedPreferences() async {
@@ -47,7 +50,7 @@ class TodoProvider extends ChangeNotifier {
      return _todos;
   } 
   //int get lastId => _todos.isNotEmpty ? _todos[_todos.length - 1].id : 0;
-  int get lastId => _todos.isNotEmpty ? _todos[0].id : 0;
+  //int get lastId => _todos.isNotEmpty ? _todos[0].id : 0;
 
   void add(TodoItemModel todo) {
     _todos.add(todo);

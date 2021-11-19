@@ -42,12 +42,12 @@ class _AllState extends State<All> {
   @override
   Widget build(BuildContext context) {
     Widget _buildTodoAllList() {
+
+      context.read<TodoProvider>().initTodos(_todos);
+      
       String _searchQueryLower = _searchQuery.toLowerCase();
       List<Widget> listTodo = [];
       List<TodoItemModel> _todos1 = context.watch<TodoProvider>().todos;
-      if(_todos1.isEmpty){
-        _todos1 = _todos;
-      }
       
       for (var todo in _todos1) {
           final str_title = todo.title.toLowerCase();

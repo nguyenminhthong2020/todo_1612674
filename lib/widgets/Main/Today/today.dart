@@ -42,12 +42,13 @@ class _TodayState extends State<Today> {
   @override
   Widget build(BuildContext context) {
     Widget _buildTodoAllList() {
+
+      context.read<TodoProvider>().initTodos(_todos);
+
       String _searchQueryLower = _searchQuery.toLowerCase();
       List<Widget> listTodo = [];
       List<TodoItemModel> _todos1 = context.watch<TodoProvider>().todos;
-      if(_todos1.isEmpty){
-        _todos1 = _todos;
-      }
+  
       String _date = (new DateTime.now()).toString().substring(0, 10);
       
       for (var todo in _todos1) {

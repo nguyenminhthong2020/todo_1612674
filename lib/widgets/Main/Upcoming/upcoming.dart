@@ -43,10 +43,10 @@ class _UpcomingState extends State<Upcoming> {
   Widget build(BuildContext context) {
 
     Widget _buildTodoAllList() {
+
+      context.read<TodoProvider>().initTodos(_todos);
       List<TodoItemModel> _todos1 = context.watch<TodoProvider>().todos;
-      if(_todos1.isEmpty){
-        _todos1 = _todos;
-      }
+      
       String _searchQueryLower = _searchQuery.toLowerCase();
       //DateTime _date = (new DateTime.now());
       String _date = (new DateTime.now()).toString().substring(0, 10);
